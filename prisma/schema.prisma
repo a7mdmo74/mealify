@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model SavedMeal {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+    mealId       String
+    strMeal      String
+    strMealThumb String
+    quantity     Int
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+      @@unique([userId, mealId], name: "userId_mealId")
+
+}
+
+model CartItem {
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId                      String
+  mealId                      String
+  strMeal                     String
+  strDrinkAlternate           String?  // Optional field
+  strCategory                 String
+  strArea                     String
+  strInstructions             String
+  strMealThumb                String
+  strTags                     String?  // Optional field
+  strYoutube                  String
+  strSource                   String?
+  strImageSource              String?
+  strCreativeCommonsConfirmed String?
+  dateModified                String?
+  quantity                    Int
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+}
